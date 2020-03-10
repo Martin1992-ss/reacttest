@@ -15,76 +15,111 @@ let root = document.querySelector('#root');
 
 
 
-class Vote extends React.Component {
-  static defaultProps = {};
-  static propTypes = {
-    title: PropTypes.string.isRequired
-  };
+
+class Temp extends React.Component{
   // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props);
-    //init state
-    this.state = {
-      n: 0,  //支持人数
-      m: 0   //反对人数
-    };
-
+  constructor(){
+    super();
+    this.state={
+      text:'呵呵呵'
+    }
   }
-  render() {
-    // let { n, m } = this.state,
-    //     rate = (n + m) === 0 ? '0%':((n / (n + m) * 100).toFixed(2) + '%');
-    return <section className="panel panel-default" style={{ width: '30%', margin: '20px auto' }}>
-      <div className='panel-heading'>
-        <h3 className='panel-title'>{this.props.title}</h3>
-      </div>
-      <div className='panel-body'>
-        支持人数:<span ref={x=>this.spanLeft=x}>0</span>
-        <br />
-        <br />
-        反对人数:<span ref={x=>this.spanRight=x}>0</span>
-        <br />
-        <br />
-        支持率:<span ref={x=>this.spanRate=x}>0</span>
-      </div>
-      <div className='panel-footer'>
-        <button className='btn btn-success' onClick={this.support.bind(this)}>支持</button>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <button className='btn btn-warning' onClick={this.against}>反对</button>
 
+  componentDidMount(){
+    setTimeout(() => {
+      this.setState({text:'哈哈哈哈'});
+    }, 1000);
+  }
+
+  render(){
+    let {text} = this.state;
+    return <section className="panel panel-default">
+      <div className="panel-heading">
+        <input type="text" className="form-control" value={text} onChange={ev=>{
+          this.setState({
+            text:ev.target.value
+          })
+        }}></input>
+      </div>
+      <div className="panel-body">
+        {text}
       </div>
     </section>
   }
-
-  support(ev) {
-    console.log(this);
-    // this.setState({n:this.state.n+1});
-    let { spanLeft } = this;
-    spanLeft.innerHTML++;
-    this.computed();
-  }
-
-  // against=ev=>this.setState({m:this.state.m+1});
-  against = ev => {
-    let { spanRight } = this;
-    spanRight.innerHTML++;
-    this.computed();
-  }
-
-  computed = () => {
-    let { spanLeft, spanRight, spanRate } = this,
-      n = parseFloat(spanLeft.innerHTML),
-      m = parseFloat(spanRight.innerHTML),
-      rate = (n + m) === 0 ? '0%' : ((n / (n + m) * 100).toFixed(2) + '%');
-    spanRate.innerHTML = rate;
-  }
 }
 
+ReactDOM.render(<Temp/>,root);
+
+// class Vote extends React.Component {
+//   static defaultProps = {};
+//   static propTypes = {
+//     title: PropTypes.string.isRequired
+//   };
+//   // eslint-disable-next-line no-useless-constructor
+//   constructor(props) {
+//     super(props);
+//     //init state
+//     this.state = {
+//       n: 0,  //支持人数
+//       m: 0   //反对人数
+//     };
+
+//   }
+//   render() {
+//     // let { n, m } = this.state,
+//     //     rate = (n + m) === 0 ? '0%':((n / (n + m) * 100).toFixed(2) + '%');
+//     return <section className="panel panel-default" style={{ width: '30%', margin: '20px auto' }}>
+//       <div className='panel-heading'>
+//         <h3 className='panel-title'>{this.props.title}</h3>
+//       </div>
+//       <div className='panel-body'>
+//         支持人数:<span ref={x=>this.spanLeft=x}>0</span>
+//         <br />
+//         <br />
+//         反对人数:<span ref={x=>this.spanRight=x}>0</span>
+//         <br />
+//         <br />
+//         支持率:<span ref={x=>this.spanRate=x}>0</span>
+//       </div>
+//       <div className='panel-footer'>
+//         <button className='btn btn-success' onClick={this.support.bind(this)}>支持</button>
+//         &nbsp;&nbsp;&nbsp;&nbsp;
+//         <button className='btn btn-warning' onClick={this.against}>反对</button>
+
+//       </div>
+//     </section>
+//   }
+
+//   support(ev) {
+//     console.log(this);
+//     // this.setState({n:this.state.n+1});
+//     let { spanLeft } = this;
+//     spanLeft.innerHTML++;
+//     this.computed();
+//   }
+
+//   // against=ev=>this.setState({m:this.state.m+1});
+//   against = ev => {
+//     let { spanRight } = this;
+//     spanRight.innerHTML++;
+//     this.computed();
+//   }
+
+//   computed = () => {
+//     let { spanLeft, spanRight, spanRate } = this,
+//       n = parseFloat(spanLeft.innerHTML),
+//       m = parseFloat(spanRight.innerHTML),
+//       rate = (n + m) === 0 ? '0%' : ((n / (n + m) * 100).toFixed(2) + '%');
+//     spanRate.innerHTML = rate;
+//   }
+// }
 
 
-ReactDOM.render(<main>
-  <Vote title='世界杯小组赛 法国VS秘鲁' />
-  <Vote title='世界杯小组赛 阿根廷VS克罗地亚' />
-</main>, root);
+
+// ReactDOM.render(<main>
+//   <Vote title='世界杯小组赛 法国VS秘鲁' />
+//   <Vote title='世界杯小组赛 阿根廷VS克罗地亚' />
+// </main>, root);
 
 // class Dialog extends React.Component {
 //   static defaultProps = {lx:"系统提示"};
