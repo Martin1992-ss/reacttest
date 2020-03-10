@@ -13,42 +13,90 @@ console.log(qs.parse('name=hshhd&age=18&lx=tttt'));
 let root = document.querySelector('#root');
 
 
-
-
-
-class Temp extends React.Component{
-  // eslint-disable-next-line no-useless-constructor
+class A extends React.Component{
+  static defaultProps = {};
   constructor(){
     super();
-    this.state={
-      text:'呵呵呵'
-    }
+    console.log('1-constructor');
+    this.state={n:1};
+  }
+
+  componentWillMount(){
+    console.log("2-componentWillMount 第一次渲染之前",this.refs.HH);
+  }
+
+ 
+
+  render(){
+    console.log("render");
+    return <div ref='HH'>
+      {this.state.n}
+    </div>;
   }
 
   componentDidMount(){
-    setTimeout(() => {
-      this.setState({text:'哈哈哈哈'});
-    }, 1000);
+    console.log("4-componentDidMount  第一次渲染之后",this.refs.HH);
+    setInterval(() => {
+      this.setState({n:this.state.n+1});
+    }, 5000);
   }
 
-  render(){
-    let {text} = this.state;
-    return <section className="panel panel-default">
-      <div className="panel-heading">
-        <input type="text" className="form-control" value={text} onChange={ev=>{
-          this.setState({
-            text:ev.target.value
-          })
-        }}></input>
-      </div>
-      <div className="panel-body">
-        {text}
-      </div>
-    </section>
+  shouldComponentUpdate(nextProps,nextState){
+    console.log('5-shouldComponentUpdate');
+    console.log(nextProps,nextState)
+    if(nextState.n>3){
+      return false;
+    }
+    return true;
   }
+
+  componentWillUpdate(nextProps,nextState){
+    console.log('6-componentWillUpdate',this.state.n,nextState);
+  }
+
+  componentDidUpdate(nextProps,nextState){
+    console.log('8-componentDidUpdate',this.state.n,nextState);
+  }
+
+
 }
 
-ReactDOM.render(<Temp/>,root);
+
+ReactDOM.render(<A/>,root);
+
+// class Temp extends React.Component{
+//   // eslint-disable-next-line no-useless-constructor
+//   constructor(){
+//     super();
+//     this.state={
+//       text:'呵呵呵'
+//     }
+//   }
+
+//   componentDidMount(){
+//     setTimeout(() => {
+//       this.setState({text:'哈哈哈哈'});
+//     }, 1000);
+//   }
+
+//   render(){
+//     let {text} = this.state;
+//     return <section className="panel panel-default">
+//       <div className="panel-heading">
+//         <input type="text" className="form-control" value={text} onChange={ev=>{
+//           this.setState({
+//             text:ev.target.value
+//           })
+//         }}></input>
+//       </div>
+//       <div className="panel-body">
+//         {text}
+//       </div>
+//     </section>
+//   }
+// }
+
+// ReactDOM.render(<Temp/>,root);
 
 // class Vote extends React.Component {
 //   static defaultProps = {};
