@@ -13,32 +13,89 @@ console.log(qs.parse('name=hshhd&age=18&lx=tttt'));
 let root = document.querySelector('#root');
 
 
-class Dialog extends React.Component {
-  static defaultProps = {lx:"系统提示"};
 
+
+class Vote extends React.Component {
+  static defaultProps = {};
   static propTypes = {
-    con:PropTypes.string.isRequired
-  }
-
+    title: PropTypes.string.isRequired
+  };
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
+    //init state
+    this.state = {
+      n: 0,  //支持人数
+      m: 0   //反对人数
+    };
+
   }
   render() {
-    console.log(this);
-    // this.props.con = "咔咔咔咔咔咔";
-    let {lx,con} = this.props;
-    return <section>
-      <h3>{lx}</h3>
-  <div>{con}</div>
-    </section>;
+    let { n, m } = this.state,
+        rate = (n + m) === 0 ? '0%':((n / (n + m) * 100).toFixed(2) + '%');
+    return <section className="panel panel-default" style={{ width: '30%', margin: '20px auto' }}>
+      <div className='panel-heading'>
+        <h3 className='panel-title'>{this.props.title}</h3>
+      </div>
+      <div className='panel-body'>
+        支持人数:{n}
+        <br />
+        <br />
+        反对人数:{m}
+        <br />
+        <br />
+        支持率:{rate}
+      </div>
+      <div className='panel-footer'>
+        <button className='btn btn-success' onClick={this.support.bind(this)}>支持</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button className='btn btn-warning' onClick={this.against}>反对</button>
+
+      </div>
+    </section>
   }
+
+  support(ev){
+    console.log(this);
+    this.setState({n:this.state.n+1});
+  }
+
+  against=ev=>this.setState({m:this.state.m+1});
 }
 
+
+
 ReactDOM.render(<main>
-  哈哈蛤
-  <Dialog lx="系统告警" con='嘿嘿嘿' />
+  <Vote title='世界杯小组赛 法国VS秘鲁' />
+  <Vote title='世界杯小组赛 阿根廷VS克罗地亚' />
 </main>, root);
+
+// class Dialog extends React.Component {
+//   static defaultProps = {lx:"系统提示"};
+
+//   static propTypes = {
+//     con:PropTypes.string.isRequired
+//   }
+
+//   // eslint-disable-next-line no-useless-constructor
+//   constructor(props) {
+//     super(props);
+//   }
+//   render() {
+//     console.log(this);
+//     // this.props.con = "咔咔咔咔咔咔";
+//     let {lx,con} = this.props;
+//     return <section>
+//       <h3>{lx}</h3>
+//   <div>{con}</div>
+//     </section>;
+//   }
+// }
+
+// ReactDOM.render(<main>
+//   哈哈蛤
+//   <Dialog lx="系统告警" con='嘿嘿嘿' />
+// </main>, root);
 
 
 /*
