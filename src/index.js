@@ -13,56 +13,106 @@ console.log(qs.parse('name=hshhd&age=18&lx=tttt'));
 let root = document.querySelector('#root');
 
 
-class A extends React.Component{
-  static defaultProps = {};
-  constructor(){
+class Head extends React.Component {
+  // eslint-disable-next-line no-useless-constructor
+  constructor() {
     super();
-    console.log('1-constructor');
-    this.state={n:1};
   }
-
-  componentWillMount(){
-    console.log("2-componentWillMount 第一次渲染之前",this.refs.HH);
+  render() {
+    return(<div className="panel-heading">
+      <h3 className="panel-heading">点击次数:{this.props.count}</h3>
+    </div>)
   }
+}
 
- 
-
-  render(){
-    console.log("render");
-    return <div ref='HH'>
-      {this.state.n}
-    </div>;
+class Body extends React.Component {
+  // eslint-disable-next-line no-useless-constructor
+  constructor() {
+    super();
   }
-
-  componentDidMount(){
-    console.log("4-componentDidMount  第一次渲染之后",this.refs.HH);
-    setInterval(() => {
-      this.setState({n:this.state.n+1});
-    }, 5000);
+  render() {
+    return(<div className="panel-body">
+      <button className="btn btn-success" onClick={this.props.callBack}>点我啊</button>
+    </div>);
   }
-
-  shouldComponentUpdate(nextProps,nextState){
-    console.log('5-shouldComponentUpdate');
-    console.log(nextProps,nextState)
-    if(nextState.n>3){
-      return false;
-    }
-    return true;
-  }
-
-  componentWillUpdate(nextProps,nextState){
-    console.log('6-componentWillUpdate',this.state.n,nextState);
-  }
-
-  componentDidUpdate(nextProps,nextState){
-    console.log('8-componentDidUpdate',this.state.n,nextState);
-  }
-
-
 }
 
 
-ReactDOM.render(<A/>,root);
+class Panel extends React.Component {
+  // eslint-disable-next-line no-useless-constructor
+  constructor() {
+    super();
+    this.state={n:0};
+  }
+
+  fn=()=>{
+    this.setState({
+      n:this.state.n+1
+    })
+  }
+
+  render() {
+    return (
+      <section className="panel panel-default" style={{width:'30%',margin:'20px auto'}}>
+        <Head count={this.state.n}/>
+        <Body callBack={this.fn} />
+      </section>
+    );
+  }
+}
+
+ReactDOM.render(<Panel />,root);
+
+// class A extends React.Component{
+//   static defaultProps = {};
+//   constructor(){
+//     super();
+//     console.log('1-constructor');
+//     this.state={n:1};
+//   }
+
+//   componentWillMount(){
+//     console.log("2-componentWillMount 第一次渲染之前",this.refs.HH);
+//   }
+
+
+
+//   render(){
+//     console.log("render");
+//     return <div ref='HH'>
+//       {this.state.n}
+//     </div>;
+//   }
+
+//   componentDidMount(){
+//     console.log("4-componentDidMount  第一次渲染之后",this.refs.HH);
+//     setInterval(() => {
+//       this.setState({n:this.state.n+1});
+//     }, 5000);
+//   }
+
+//   shouldComponentUpdate(nextProps,nextState){
+//     console.log('5-shouldComponentUpdate');
+//     console.log(nextProps,nextState)
+//     if(nextState.n>3){
+//       return false;
+//     }
+//     return true;
+//   }
+
+//   componentWillUpdate(nextProps,nextState){
+//     console.log('6-componentWillUpdate',this.state.n,nextState);
+//   }
+
+//   componentDidUpdate(nextProps,nextState){
+//     console.log('8-componentDidUpdate',this.state.n,nextState);
+//   }
+
+
+// }
+
+
+// ReactDOM.render(<A/>,root);
 
 // class Temp extends React.Component{
 //   // eslint-disable-next-line no-useless-constructor
