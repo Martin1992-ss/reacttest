@@ -1,14 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import qs from 'qs';
-import './static/less/index.less';
-import Dialog from './components/Dialog';
+// import './static/less/index.less';
+import './static/css/reset.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import Dialog from './components/Dialog';
+import PropTypes from 'prop-types';
+
 
 console.log(qs.parse('name=hshhd&age=18&lx=tttt'));
 
 let root = document.querySelector('#root');
 
-/* 
+
+class Dialog extends React.Component {
+  static defaultProps = {lx:"系统提示"};
+
+  static propTypes = {
+    con:PropTypes.string.isRequired
+  }
+
+  // eslint-disable-next-line no-useless-constructor
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    console.log(this);
+    // this.props.con = "咔咔咔咔咔咔";
+    let {lx,con} = this.props;
+    return <section>
+      <h3>{lx}</h3>
+  <div>{con}</div>
+    </section>;
+  }
+}
+
+ReactDOM.render(<main>
+  哈哈蛤
+  <Dialog lx="系统告警" con='嘿嘿嘿' />
+</main>, root);
+
+
+/*
 let data=" render!"
 ReactDOM.render(<div id="box">hello react {data}</div>,root,()=>{
   let obox = document.querySelector('#box');
@@ -29,7 +62,7 @@ ReactDOM.render(<div id="box">hello react {data}</div>,root,()=>{
  *   5.给元素设置样式类用的是className而不是class
  *
  *   6.style中不能直接的写样式字符串，需要基于一个样式对象来遍历赋值
- * 
+ *
  */
 
 
@@ -40,7 +73,7 @@ ReactDOM.render(<div id="box">hello react {data}</div>,root,()=>{
 //     </ul>
 // </div>, root);
 
-/* 
+/*
 
 let data = [{
   name: '张三',
@@ -65,7 +98,11 @@ ReactDOM.render(
   </div>, root);
  */
 
- ReactDOM.render(<div>
-   <Dialog con='哈哈蛤' />
-   <Dialog con='嘿嘿嘿' lx={2}></Dialog>
- </div>,root);
+//  ReactDOM.render(<div>
+//    <Dialog con='哈哈蛤' />
+//    <Dialog />
+//    <Dialog con='嘿嘿嘿' lx={2}>
+//      <span>12</span>
+//      <span>34</span>
+//    </Dialog>
+//  </div>,root);
