@@ -38,13 +38,13 @@ class Vote extends React.Component {
         <h3 className='panel-title'>{this.props.title}</h3>
       </div>
       <div className='panel-body'>
-        支持人数:<span ref='spanLeft'>0</span>
+        支持人数:<span ref={x=>this.spanLeft=x}>0</span>
         <br />
         <br />
-        反对人数:<span ref='spanRight'>0</span>
+        反对人数:<span ref={x=>this.spanRight=x}>0</span>
         <br />
         <br />
-        支持率:<span ref='spanRate'>0</span>
+        支持率:<span ref={x=>this.spanRate=x}>0</span>
       </div>
       <div className='panel-footer'>
         <button className='btn btn-success' onClick={this.support.bind(this)}>支持</button>
@@ -56,22 +56,22 @@ class Vote extends React.Component {
   }
 
   support(ev) {
-    console.log(this.refs);
+    console.log(this);
     // this.setState({n:this.state.n+1});
-    let { spanLeft } = this.refs;
+    let { spanLeft } = this;
     spanLeft.innerHTML++;
     this.computed();
   }
 
   // against=ev=>this.setState({m:this.state.m+1});
   against = ev => {
-    let { spanRight } = this.refs;
+    let { spanRight } = this;
     spanRight.innerHTML++;
     this.computed();
   }
 
   computed = () => {
-    let { spanLeft, spanRight, spanRate } = this.refs,
+    let { spanLeft, spanRight, spanRate } = this,
       n = parseFloat(spanLeft.innerHTML),
       m = parseFloat(spanRight.innerHTML),
       rate = (n + m) === 0 ? '0%' : ((n / (n + m) * 100).toFixed(2) + '%');
